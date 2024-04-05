@@ -16,7 +16,7 @@
     </developers>
     
     <build>
-        <!-- Nom du Jar par défaut. -->
+        <!-- Nom du JAR par défaut. -->
         <finalName>${project.name}-${project.version}</finalName>
         
         <plugins>
