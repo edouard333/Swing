@@ -1,5 +1,6 @@
 package com.phenix.swing;
 
+import com.phenix.swing.util.Utils;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -27,6 +28,21 @@ public class LookAndFeelManager {
      * @param afficher_erreur_fenetre Si on affiche une erreur dans une fenêtre.
      */
     public static void setByOS(boolean afficher_erreur_fenetre) {
+        setByOS(afficher_erreur_fenetre, null);
+    }
+
+    /**
+     * Définit le style de l'application avec celui de l'OS.
+     *
+     * @param afficher_erreur_fenetre Si on affiche une erreur dans une fenêtre.
+     * @param nom_application Nom de l'application, affiché pour macOS.
+     */
+    public static void setByOS(boolean afficher_erreur_fenetre, String nom_application) {
+        if (Utils.getOS().equals(Utils.MACOSX) && nom_application != null) {
+            // Définit le nom de l'application sur macOS.
+            System.setProperty("apple.awt.application.name", nom_application);
+        }
+
         try {
             // On parcourt chaque LAF disponible et dès qu'on a Windows ou MacOS on l'utilise :
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
