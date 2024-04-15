@@ -1,6 +1,7 @@
 package com.phenix.swing;
 
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
@@ -28,16 +29,16 @@ public class LookAndFeelManager {
     public static void setByOS(boolean afficher_erreur_fenetre) {
         try {
             // On parcourt chaque LAF disponible et dès qu'on a Windows ou MacOS on l'utilise :
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 // Si on est sur Windows, on sélectionne cet aspect.
                 if (LAF_WINDOWS.equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
 
                 // Si c'est un Mac, on sélectionne cet aspect.
                 if (LAF_MAC_OS_X.equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
