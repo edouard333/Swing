@@ -124,7 +124,6 @@ public class JPositionMultiScreen {
      * Indique où doit se trouve la fenêtre au centre d'où se trouve la souris.
      *
      * @param frame La fenêtre.
-     * @param visible Si on rend visible.
      */
     public static void setLocation(JFrame frame) {
         setLocation(frame, null);
@@ -135,7 +134,6 @@ public class JPositionMultiScreen {
      * ou parent si renseigné.
      *
      * @param frame La fenêtre.
-     * @param visible Si on rend visible.
      * @param parent La fenêtre parent.
      */
     public static void setLocation(JFrame frame, JFrame parent) {
