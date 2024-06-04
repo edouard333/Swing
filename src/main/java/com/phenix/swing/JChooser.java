@@ -3,6 +3,7 @@ package com.phenix.swing;
 import com.phenix.swing.util.Utils;
 import com.sun.javafx.application.PlatformImpl;
 import java.awt.FileDialog;
+import java.awt.Window;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -25,8 +26,8 @@ public class JChooser {
      *
      * @param liste_dossier La liste des dossiers à définir.
      */
-    public static void directories(ListeFichier liste_dossier) {
-        directories(liste_dossier, null);
+    public static void directories(JFrame parent, ListeFichier liste_dossier) {
+        directories(parent, liste_dossier, null);
     }
 
     /**
@@ -36,7 +37,7 @@ public class JChooser {
      * @param liste_dossier La liste des dossiers à définir.
      * @param dossier_initial Le dossier initial.
      */
-    public static void directories(ListeFichier liste_dossier, File dossier_initial) {
+    public static void directories(JFrame parent, ListeFichier liste_dossier, File dossier_initial) {
         // Crée une fenêtre qui permet de sauver son fichier avec l'interface Finder.
         if (Utils.getOS().equals(Utils.MACOSX)) {
             JFrame frame = new JFrame();
@@ -66,6 +67,8 @@ public class JChooser {
         else {
             try {
                 PlatformImpl.startup(() -> {
+                    parent.setEnabled(false);
+
                     DirectoryChooser d = new DirectoryChooser();
                     if (dossier_initial != null) {
                         d.setInitialDirectory(dossier_initial);
@@ -75,6 +78,9 @@ public class JChooser {
                     if (selectedFile != null) {
                         liste_dossier.set(new File[]{selectedFile});
                     }
+
+                    parent.setEnabled(true);
+                    parent.requestFocus();
                 });
             } catch (Exception exception) {
                 System.out.println("Erreur : " + exception.getMessage());
@@ -88,8 +94,8 @@ public class JChooser {
      *
      * @param dossier Le dossier à définir.
      */
-    public static void directory(Fichier dossier) {
-        directory(dossier, null);
+    public static void directory(JFrame parent, Fichier dossier) {
+        directory(parent, dossier, null);
     }
 
     /**
@@ -99,7 +105,7 @@ public class JChooser {
      * @param dossier Le dossier à définir.
      * @param dossier_initial Le dossier initial.
      */
-    public static void directory(Fichier dossier, File dossier_initial) {
+    public static void directory(JFrame parent, Fichier dossier, File dossier_initial) {
         // Crée une fenêtre qui permet de sauver son fichier avec l'interface Finder.
         if (Utils.getOS().equals(Utils.MACOSX)) {
             JFrame frame = new JFrame();
@@ -123,6 +129,8 @@ public class JChooser {
             }
         } // Pour Windows :
         else {
+            parent.setEnabled(false);
+
             try {
                 PlatformImpl.startup(() -> {
                     DirectoryChooser d = new DirectoryChooser();
@@ -138,6 +146,9 @@ public class JChooser {
             } catch (Exception exception) {
                 System.out.println("Erreur : " + exception.getMessage());
             }
+
+            parent.setEnabled(true);
+            parent.requestFocus();
         }
     }
 
@@ -151,8 +162,8 @@ public class JChooser {
      * {@link java.awt.FileDialog#SAVE FileDialog.SAVE}.
      * @see java.awt.FileDialog#getMode
      */
-    public static void file(Fichier fichier, int mode) {
-        file(fichier, mode, null, null, null);
+    public static void file(Window parent, Fichier fichier, int mode) {
+        file(parent, fichier, mode, null, null, null);
     }
 
     /**
@@ -166,8 +177,8 @@ public class JChooser {
      * @param filtre Filtre sur base d'une ou plusieurs extensions de fichier.
      * @see java.awt.FileDialog#getMode
      */
-    public static void file(Fichier fichier, int mode, ExtensionFilterGeneric filtre) {
-        file(fichier, mode, null, null, filtre);
+    public static void file(Window parent, Fichier fichier, int mode, ExtensionFilterGeneric filtre) {
+        file(parent, fichier, mode, null, null, filtre);
     }
 
     /**
@@ -181,12 +192,12 @@ public class JChooser {
      * @param fichier_initial Fichier et/ou dossier initial.
      * @see java.awt.FileDialog#getMode
      */
-    public static void file(Fichier fichier, int mode, File fichier_initial) {
-        file(fichier, mode, fichier_initial.isAbsolute() ? (fichier_initial.isFile() ? fichier_initial.getParentFile() : fichier_initial) : null, fichier_initial.isFile() ? fichier_initial.getName() : null, null);
+    public static void file(JFrame parent, Fichier fichier, int mode, File fichier_initial) {
+        file(parent, fichier, mode, fichier_initial.isAbsolute() ? (fichier_initial.isFile() ? fichier_initial.getParentFile() : fichier_initial) : null, fichier_initial.isFile() ? fichier_initial.getName() : null, null);
     }
 
-    public static void file(Fichier fichier, int mode, File fichier_initial, ExtensionFilterGeneric filtre) throws IOException {
-        file(fichier, mode, fichier_initial.isAbsolute() ? (fichier_initial.isFile() ? fichier_initial.getParentFile() : fichier_initial) : null, fichier_initial.isFile() ? fichier_initial.getName() : null, filtre);
+    public static void file(JFrame parent, Fichier fichier, int mode, File fichier_initial, ExtensionFilterGeneric filtre) throws IOException {
+        file(parent, fichier, mode, fichier_initial.isAbsolute() ? (fichier_initial.isFile() ? fichier_initial.getParentFile() : fichier_initial) : null, fichier_initial.isFile() ? fichier_initial.getName() : null, filtre);
     }
 
     /**
@@ -201,8 +212,8 @@ public class JChooser {
      * @param nom_fichier_initial Le nom initial du fichier.
      * @see java.awt.FileDialog#getMode
      */
-    public static void file(Fichier fichier, int mode, File dossier_initial, String nom_fichier_initial) {
-        file(fichier, mode, dossier_initial, nom_fichier_initial, null);
+    public static void file(JFrame parent, Fichier fichier, int mode, File dossier_initial, String nom_fichier_initial) {
+        file(parent, fichier, mode, dossier_initial, nom_fichier_initial, null);
     }
 
     /**
@@ -214,7 +225,7 @@ public class JChooser {
      * @param nom_fichier_initial Le nom initial du fichier.
      * @see java.awt.FileDialog#getMode
      */
-    public static void file(Fichier fichier, int mode, File dossier_initial, String nom_fichier_initial, ExtensionFilterGeneric filtre) {
+    public static void file(Window parent, Fichier fichier, int mode, File dossier_initial, String nom_fichier_initial, ExtensionFilterGeneric filtre) {
         // Crée une fenêtre qui permet de sauver son fichier avec l'interface Finder.
         if (Utils.getOS().equals(Utils.MACOSX)) {
             JFrame frame = new JFrame();
@@ -248,6 +259,11 @@ public class JChooser {
             }
         } else {
             PlatformImpl.startup(() -> {
+
+                if (parent != null) {
+                    parent.setEnabled(false);
+                }
+
                 FileChooser d = new FileChooser();
                 if (dossier_initial != null) {
                     System.out.println("Fichier : '" + dossier_initial + "'");
@@ -283,6 +299,11 @@ public class JChooser {
                 if (selectedFile != null) {
                     fichier.set(selectedFile);
                 }
+
+                if (parent != null) {
+                    parent.setEnabled(true);
+                    parent.requestFocus();
+                }
             });
         }
     }
@@ -293,8 +314,8 @@ public class JChooser {
      *
      * @param liste_fichier Les fichiers à définir.
      */
-    public static void files(ListeFichier liste_fichier) {
-        files(liste_fichier, null);
+    public static void files(JFrame parent, ListeFichier liste_fichier) {
+        files(parent, liste_fichier, null);
     }
 
     /**
@@ -304,7 +325,7 @@ public class JChooser {
      * @param liste_fichier Les fichiers à définir.
      * @param dossier_initial Le dossier initial.
      */
-    public static void files(ListeFichier liste_fichier, File dossier_initial) {
+    public static void files(JFrame parent, ListeFichier liste_fichier, File dossier_initial) {
         // Crée une fenêtre qui permet de sauver son fichier avec l'interface Finder.
         if (Utils.getOS().equals(Utils.MACOSX)) {
             JFrame frame = new JFrame();
@@ -330,6 +351,8 @@ public class JChooser {
             }
         } else {
             PlatformImpl.startup(() -> {
+                parent.setEnabled(false);
+
                 FileChooser d = new FileChooser();
                 if (dossier_initial != null) {
                     d.setInitialDirectory(dossier_initial);
@@ -340,6 +363,9 @@ public class JChooser {
                 if (selectedFile != null) {
                     liste_fichier.set((File[]) selectedFile.toArray());
                 }
+
+                parent.setEnabled(true);
+                parent.requestFocus();
             });
         }
     }
