@@ -124,8 +124,8 @@ public class JChooser {
             // Quand on a indiqué l'endroit où sauver le fichier ou qu'on a fermé la fenêtre, on est ici dans le code.
             // On s'assure qu'un fichier a été choisi (et dossier).
             if (d.getDirectory() != null && d.getFile() != null) {
-                d.setVisible(false);
                 dossier.set(new File(d.getDirectory() + File.separator + d.getFile()));
+                d.dispose();
             }
         } // Pour Windows :
         else {
