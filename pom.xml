@@ -4,7 +4,7 @@
     <groupId>com.phenix</groupId>
     <artifactId>swing</artifactId>
     <name>Swing</name>
-    <version>0.5.2</version>
+    <version>0.5.3</version>
     <packaging>jar</packaging>
     <url>https://github.com/edouard333/Swing</url>
     
@@ -68,7 +68,7 @@
         <!-- Type d'application : "graphic", "console" ou "library". -->
         <appType>library</appType>
         <!-- Nom de l'application. -->
-        <appName>Swing</appName>
+        <appTitle>Swing</appTitle>
         <!-- Pour l'instant comme ça pour indiquer la version. -->
         <appVersion>${project.version}</appVersion>
     </properties>

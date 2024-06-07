@@ -7,6 +7,7 @@ import java.awt.GraphicsEnvironment;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Window;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
@@ -60,7 +61,12 @@ public class JPositionMultiScreen {
 
     /**
      * Tente de charger des préférences UI et si n'y arrive pas, alors centre la
-     * fenêtre sur le bon écran.
+     * fenêtre sur le bon écran.<br>
+     * Ajoute au
+     * {@link java.awt.event.WindowAdapter#windowClosing(java.awt.event.WindowEvent) windowClosing(evt)}
+     * la sauvegarde des préférences.<br>
+     * S'il y a d'autres manières dont se ferme la fenêtre : ajouter la fonction
+     * {@link savePreferences(frame, nom_application)}
      *
      * @param frame La fenêtre.
      * @param nom_application Nom de l'application.
@@ -68,7 +74,7 @@ public class JPositionMultiScreen {
     public static void loadPreferencesOrCenterScreen(JFrame frame, String nom_application) throws IOException {
         // Ajoute le comportement pour la fermeture de la fenêtre : sauver les préférences UI.
         frame.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent we) {
+            public void windowClosing(WindowEvent evt) {
                 try {
                     JPositionMultiScreen.savePreferences(frame, nom_application);
                 } catch (IOException exception) {
@@ -78,8 +84,8 @@ public class JPositionMultiScreen {
         });
 
         // Si des préférences existes, on les utilise.
-        if (preferencesExist("UX")) {
-            loadPreferences(frame, "UX");
+        if (preferencesExist(nom_application)) {
+            loadPreferences(frame, nom_application);
         } else {
             setLocation(frame, null);
         }
@@ -92,7 +98,7 @@ public class JPositionMultiScreen {
      *
      * @throws IOException
      */
-    public static void loadPreferences(JFrame frame, String nom_application) throws IOException {
+    public static void loadPreferences(Window frame, String nom_application) throws IOException {
         File file = getFichierPreferences(nom_application);
         Properties p = new Properties();
         BufferedReader br = new BufferedReader(new FileReader(file));
@@ -125,7 +131,7 @@ public class JPositionMultiScreen {
      *
      * @param frame La fenêtre.
      */
-    public static void setLocation(JFrame frame) {
+    public static void setLocation(Window frame) {
         setLocation(frame, null);
     }
 
@@ -136,7 +142,7 @@ public class JPositionMultiScreen {
      * @param frame La fenêtre.
      * @param parent La fenêtre parent.
      */
-    public static void setLocation(JFrame frame, JFrame parent) {
+    public static void setLocation(Window frame, JFrame parent) {
         // Obtenir la position actuelle de la souris.
         Point mouseLocation = parent == null ? MouseInfo.getPointerInfo().getLocation() : parent.getLocation();
 
@@ -160,7 +166,7 @@ public class JPositionMultiScreen {
             currentScreen = ge.getDefaultScreenDevice();
         }
 
-        // Obtenir les dimensions de l'écran sélectionné
+        // Obtenir les dimensions de l'écran sélectionné.
         GraphicsConfiguration gc = currentScreen.getDefaultConfiguration();
         Rectangle bounds = gc.getBounds();
 

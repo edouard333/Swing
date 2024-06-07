@@ -35,12 +35,12 @@ public class LookAndFeelManager {
      * Définit le style de l'application avec celui de l'OS.
      *
      * @param afficher_erreur_fenetre Si on affiche une erreur dans une fenêtre.
-     * @param nom_application Nom de l'application, affiché pour macOS.
+     * @param titre_application Titre de l'application, affiché pour macOS.
      */
-    public static void setByOS(boolean afficher_erreur_fenetre, String nom_application) {
-        if (Utils.getOS().equals(Utils.MACOSX) && nom_application != null) {
+    public static void setByOS(boolean afficher_erreur_fenetre, String titre_application) {
+        if (Utils.getOS().equals(Utils.MACOSX) && titre_application != null) {
             // Définit le nom de l'application sur macOS.
-            System.setProperty("apple.awt.application.name", nom_application);
+            System.setProperty("apple.awt.application.name", titre_application);
         }
 
         try {
