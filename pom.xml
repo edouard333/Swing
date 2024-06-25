@@ -4,7 +4,7 @@
     <groupId>com.phenix</groupId>
     <artifactId>swing</artifactId>
     <name>Swing</name>
-    <version>0.5.3</version>
+    <version>0.5.4</version>
     <packaging>jar</packaging>
     <url>https://github.com/edouard333/Swing</url>
     

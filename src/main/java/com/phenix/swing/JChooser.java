@@ -193,11 +193,23 @@ public class JChooser {
      * @see java.awt.FileDialog#getMode
      */
     public static void file(JFrame parent, Fichier fichier, int mode, File fichier_initial) {
-        file(parent, fichier, mode, fichier_initial.isAbsolute() ? (fichier_initial.isFile() ? fichier_initial.getParentFile() : fichier_initial) : null, fichier_initial.isFile() ? fichier_initial.getName() : null, null);
+        file(parent, fichier, mode, fichier_initial.isAbsolute() ? (fichier_initial.getName().contains(".") ? fichier_initial.getParentFile() : fichier_initial) : null, fichier_initial.getName().contains(".") ? fichier_initial.getName() : null, null);
     }
 
+    /**
+     * Affiche une fenêtre permettant de choisir un fichier (Finder pour macOS
+     * et Explorer pour Windows).
+     *
+     * @param fichier Le fichier à définir.
+     * @param mode Le mode pour la fenêtre entre
+     * {@link java.awt.FileDialog#LOAD FileDialog.LOAD} ou
+     * {@link java.awt.FileDialog#SAVE FileDialog.SAVE}.
+     * @param fichier_initial Fichier et/ou dossier initial.
+     * @param filtre Filtrer des fichiers par exentions de fichier.
+     * @see java.awt.FileDialog#getMode
+     */
     public static void file(JFrame parent, Fichier fichier, int mode, File fichier_initial, ExtensionFilterGeneric filtre) throws IOException {
-        file(parent, fichier, mode, fichier_initial.isAbsolute() ? (fichier_initial.isFile() ? fichier_initial.getParentFile() : fichier_initial) : null, fichier_initial.isFile() ? fichier_initial.getName() : null, filtre);
+        file(parent, fichier, mode, fichier_initial.isAbsolute() ? (fichier_initial.getName().contains(".") ? fichier_initial.getParentFile() : fichier_initial) : null, fichier_initial.getName().contains(".") ? fichier_initial.getName() : null, filtre);
     }
 
     /**
@@ -259,16 +271,17 @@ public class JChooser {
             }
         } else {
             PlatformImpl.startup(() -> {
-
                 if (parent != null) {
                     parent.setEnabled(false);
                 }
 
                 FileChooser d = new FileChooser();
+
                 if (dossier_initial != null) {
                     System.out.println("Fichier : '" + dossier_initial + "'");
                     d.setInitialDirectory(dossier_initial);
                 }
+
                 if (nom_fichier_initial != null) {
                     System.out.println("Fichier : '" + nom_fichier_initial + "'");
                     d.setInitialFileName(nom_fichier_initial);
@@ -286,6 +299,8 @@ public class JChooser {
                     filtre_tmp = new ExtensionFilter(filtre.getDescription(), liste_extension);
                     d.getExtensionFilters().add(filtre_tmp);
                     d.setSelectedExtensionFilter(filtre_tmp);
+                } else {
+                    d.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Files", "*.*"));
                 }
 
                 File selectedFile;
