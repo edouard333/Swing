@@ -10,6 +10,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 
 /**
+ * Evènement souris pour un {@link javax.swing.JLabel JLabel}.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  */
@@ -18,7 +19,7 @@ public class MouseEventLabelFor implements MouseListener {
     /**
      * Evènement quand on clique.
      *
-     * @param evt
+     * @param evt L'évènement.
      */
     @Override
     public void mouseClicked(MouseEvent evt) {

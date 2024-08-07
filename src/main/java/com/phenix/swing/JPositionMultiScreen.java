@@ -36,11 +36,12 @@ public class JPositionMultiScreen {
     }
 
     /**
+     * Sauvegarde les informations de positions.
      *
      * @param frame La fenêtre.
      * @param nom_application Nom de l'application.
      *
-     * @throws IOException
+     * @throws IOException Erreur avec l'écriture du fichier properties.
      */
     public static void savePreferences(JFrame frame, String nom_application) throws IOException {
         File file = getFichierPreferences(nom_application);
@@ -70,6 +71,8 @@ public class JPositionMultiScreen {
      *
      * @param frame La fenêtre.
      * @param nom_application Nom de l'application.
+     *
+     * @throws IOException Erreur dans le chargement des préférences.
      */
     public static void loadPreferencesOrCenterScreen(JFrame frame, String nom_application) throws IOException {
         // Ajoute le comportement pour la fermeture de la fenêtre : sauver les préférences UI.
@@ -96,7 +99,7 @@ public class JPositionMultiScreen {
      * @param frame La fenêtre.
      * @param nom_application Nom de l'application.
      *
-     * @throws IOException
+     * @throws IOException Erreur dans le chargement du fichier properties.
      */
     public static void loadPreferences(Window frame, String nom_application) throws IOException {
         File file = getFichierPreferences(nom_application);
@@ -115,9 +118,10 @@ public class JPositionMultiScreen {
     }
 
     /**
+     * Retourne {@code true} si le fichier properties existe pour l'application.
      *
      * @param nom_application Nom de l'application.
-     * @return
+     * @return {@code true} si le fichier existe.
      */
     public static boolean preferencesExist(String nom_application) {
         File optionsFile = getFichierPreferences(nom_application);

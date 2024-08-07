@@ -24,6 +24,7 @@ public class JChooser {
      * Affiche une fenêtre permettant de choisir des dossiers (Finder pour macOS
      * et Explorer pour Windows).
      *
+     * @param parent Fenêtre parent.
      * @param liste_dossier La liste des dossiers à définir.
      */
     public static void directories(JFrame parent, ListeFichier liste_dossier) {
@@ -34,6 +35,7 @@ public class JChooser {
      * Affiche une fenêtre permettant de choisir des dossiers (Finder pour macOS
      * et Explorer pour Windows).
      *
+     * @param parent Fenêtre parent.
      * @param liste_dossier La liste des dossiers à définir.
      * @param dossier_initial Le dossier initial.
      */
@@ -92,6 +94,7 @@ public class JChooser {
      * Affiche une fenêtre permettant de choisir un dossier (Finder pour macOS
      * et Explorer pour Windows).
      *
+     * @param parent Fenêtre parent.
      * @param dossier Le dossier à définir.
      */
     public static void directory(JFrame parent, Fichier dossier) {
@@ -102,6 +105,7 @@ public class JChooser {
      * Affiche une fenêtre permettant de choisir un dossier (Finder pour macOS
      * et Explorer pour Windows).
      *
+     * @param parent Fenêtre parent.
      * @param dossier Le dossier à définir.
      * @param dossier_initial Le dossier initial.
      */
@@ -156,6 +160,7 @@ public class JChooser {
      * Affiche une fenêtre permettant de choisir un fichier (Finder pour macOS
      * et Explorer pour Windows).
      *
+     * @param parent Fenêtre parent.
      * @param fichier Le fichier à définir.
      * @param mode Le mode pour la fenêtre entre
      * {@link java.awt.FileDialog#LOAD FileDialog.LOAD} ou
@@ -170,6 +175,7 @@ public class JChooser {
      * Affiche une fenêtre permettant de choisir un fichier (Finder pour macOS
      * et Explorer pour Windows).
      *
+     * @param parent Fenêtre parent.
      * @param fichier Le fichier à définir.
      * @param mode Le mode pour la fenêtre entre
      * {@link java.awt.FileDialog#LOAD FileDialog.LOAD} ou
@@ -185,6 +191,7 @@ public class JChooser {
      * Affiche une fenêtre permettant de choisir un fichier (Finder pour macOS
      * et Explorer pour Windows).
      *
+     * @param parent Fenêtre parent.
      * @param fichier Le fichier à définir.
      * @param mode Le mode pour la fenêtre entre
      * {@link java.awt.FileDialog#LOAD FileDialog.LOAD} ou
@@ -200,6 +207,7 @@ public class JChooser {
      * Affiche une fenêtre permettant de choisir un fichier (Finder pour macOS
      * et Explorer pour Windows).
      *
+     * @param parent Fenêtre parent.
      * @param fichier Le fichier à définir.
      * @param mode Le mode pour la fenêtre entre
      * {@link java.awt.FileDialog#LOAD FileDialog.LOAD} ou
@@ -207,6 +215,8 @@ public class JChooser {
      * @param fichier_initial Fichier et/ou dossier initial.
      * @param filtre Filtrer des fichiers par exentions de fichier.
      * @see java.awt.FileDialog#getMode
+     * 
+     * @throws IOException
      */
     public static void file(JFrame parent, Fichier fichier, int mode, File fichier_initial, ExtensionFilterGeneric filtre) throws IOException {
         file(parent, fichier, mode, fichier_initial.isAbsolute() ? (fichier_initial.getName().contains(".") ? fichier_initial.getParentFile() : fichier_initial) : null, fichier_initial.getName().contains(".") ? fichier_initial.getName() : null, filtre);
@@ -216,6 +226,7 @@ public class JChooser {
      * Affiche une fenêtre permettant de choisir un fichier (Finder pour macOS
      * et Explorer pour Windows).
      *
+     * @param parent Fenêtre parent.
      * @param fichier Le fichier à définir.
      * @param mode Le mode pour la fenêtre entre
      * {@link java.awt.FileDialog#LOAD FileDialog.LOAD} ou
@@ -229,12 +240,14 @@ public class JChooser {
     }
 
     /**
+     * @param parent Fenêtre parent.
      * @param fichier Le fichier à définir.
      * @param mode Le mode pour la fenêtre entre
      * {@link java.awt.FileDialog#LOAD FileDialog.LOAD} ou
      * {@link java.awt.FileDialog#SAVE FileDialog.SAVE}.
      * @param dossier_initial Le dossier initial.
      * @param nom_fichier_initial Le nom initial du fichier.
+     * @param filtre Filtrer des fichiers par exentions de fichier.
      * @see java.awt.FileDialog#getMode
      */
     public static void file(Window parent, Fichier fichier, int mode, File dossier_initial, String nom_fichier_initial, ExtensionFilterGeneric filtre) {
@@ -327,6 +340,7 @@ public class JChooser {
      * Affiche une fenêtre permettant de choisir des fichiers (Finder pour macOS
      * et Explorer pour Windows).
      *
+     * @param parent Fenêtre parent.
      * @param liste_fichier Les fichiers à définir.
      */
     public static void files(JFrame parent, ListeFichier liste_fichier) {
@@ -337,6 +351,7 @@ public class JChooser {
      * Affiche une fenêtre permettant de choisir des fichiers (Finder pour macOS
      * et Explorer pour Windows).
      *
+     * @param parent Fenêtre parent.
      * @param liste_fichier Les fichiers à définir.
      * @param dossier_initial Le dossier initial.
      */
