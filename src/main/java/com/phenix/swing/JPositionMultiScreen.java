@@ -146,7 +146,7 @@ public class JPositionMultiScreen {
      * @param frame La fenêtre.
      * @param parent La fenêtre parent.
      */
-    public static void setLocation(Window frame, JFrame parent) {
+    public static void setLocation(Window frame, Window parent) {
         // Obtenir la position actuelle de la souris.
         Point mouseLocation = parent == null ? MouseInfo.getPointerInfo().getLocation() : parent.getLocation();
 
