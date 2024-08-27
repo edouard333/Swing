@@ -884,6 +884,7 @@ public class FileDrop {
          * @version 1.1
          * @since 1.1
          */
+        @FunctionalInterface
         public static interface Fetcher {
 
             /**
