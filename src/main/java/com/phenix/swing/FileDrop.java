@@ -603,6 +603,7 @@ public class FileDrop {
      *
      * @since 1.1
      */
+    @FunctionalInterface
     public static interface Listener {
 
         /**
