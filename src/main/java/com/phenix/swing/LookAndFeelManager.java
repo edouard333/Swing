@@ -1,6 +1,6 @@
 package com.phenix.swing;
 
-import com.phenix.swing.util.Utils;
+import com.phenix.apios.OS;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -10,17 +10,14 @@ import javax.swing.UnsupportedLookAndFeelException;
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  */
-public class LookAndFeelManager {
+public final class LookAndFeelManager {
 
     /**
-     * LAF pour Windows.
+     * Pour ne pas instancier la classe.
      */
-    private static final String LAF_WINDOWS = "Windows";
-
-    /**
-     * LAF pour MacOS.
-     */
-    private static final String LAF_MAC_OS_X = "Mac OS X";
+    private LookAndFeelManager() throws Exception {
+        throw new Exception("Cette classe ne peut pas être instanciée.");
+    }
 
     /**
      * Définit le style de l'application avec celui de l'OS.
@@ -38,22 +35,20 @@ public class LookAndFeelManager {
      * @param titre_application Titre de l'application, affiché pour macOS.
      */
     public static void setByOS(boolean afficher_erreur_fenetre, String titre_application) {
-        if (Utils.getOS().equals(Utils.MACOSX) && titre_application != null) {
+        if (OS.isMacOSX() && titre_application != null) {
             // Définit le nom de l'application sur macOS.
             System.setProperty("apple.awt.application.name", titre_application);
         }
 
         try {
-            // On parcourt chaque LAF disponible et dès qu'on a Windows ou MacOS on l'utilise :
+            // On parcourt chaque LAF disponible et dès qu'on a Windows ou macOS on l'utilise :
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 // Si on est sur Windows, on sélectionne cet aspect.
-                if (LAF_WINDOWS.equals(info.getName())) {
+                if (LookAndFeel.isWindows(info.getName())) {
                     UIManager.setLookAndFeel(info.getClassName());
                     break;
-                }
-
-                // Si c'est un Mac, on sélectionne cet aspect.
-                if (LAF_MAC_OS_X.equals(info.getName())) {
+                } // Si c'est un Mac, on sélectionne cet aspect.
+                else if (LookAndFeel.isMacOSX(info.getName())) {
                     UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

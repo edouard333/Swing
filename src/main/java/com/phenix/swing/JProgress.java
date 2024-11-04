@@ -11,7 +11,7 @@ import javax.swing.SwingUtilities;
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  * @version 0.1.0
  */
-public class JProgress extends JFrame {
+public final class JProgress extends JFrame {
 
     /**
      * La barre de progression.

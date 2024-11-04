@@ -4,7 +4,7 @@
     <groupId>com.phenix</groupId>
     <artifactId>swing</artifactId>
     <name>Swing</name>
-    <version>0.5.6</version>
+    <version>0.5.7</version>
     <packaging>jar</packaging>
     <url>https://github.com/edouard333/Swing</url>
     
@@ -16,9 +16,6 @@
     </developers>
     
     <build>
-        <!-- Nom du JAR par défaut. -->
-        <finalName>${project.name}-${project.version}</finalName>
-        
         <plugins>
             <!-- Ajoute le code source dans Maven. -->
             <plugin>
@@ -55,9 +52,14 @@
     
     <dependencies>
         <dependency>
+            <groupId>com.phenix</groupId>
+            <artifactId>apios</artifactId>
+            <version>0.5.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
-            <version>21.0.2</version>
+            <version>21.0.4</version>
         </dependency>
     </dependencies>
     

@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  */
-public class LeftDotRenderer extends DefaultTableCellRenderer {
+public final class LeftDotRenderer extends DefaultTableCellRenderer {
 
     @Override
     public Component getTableCellRendererComponent(

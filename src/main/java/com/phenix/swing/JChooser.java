@@ -1,12 +1,12 @@
 package com.phenix.swing;
 
-import com.phenix.swing.util.Utils;
-import com.sun.javafx.application.PlatformImpl;
+import com.phenix.apios.OS;
 import java.awt.FileDialog;
 import java.awt.Window;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import javafx.application.Platform;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -18,7 +18,22 @@ import javax.swing.JFrame;
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  */
-public class JChooser {
+public final class JChooser {
+
+    static {
+        // On doit lancer le thread de JavaFX. Puis on fait {@code Platform.runLater(...); }
+        Platform.startup(() -> {
+        });
+    }
+
+    /**
+     * Pour empêcher d'instancier la classe.
+     *
+     * @throws Exception
+     */
+    private JChooser() throws Exception {
+        throw new Exception("Cette classe ne peut pas être instanciée.");
+    }
 
     /**
      * Affiche une fenêtre permettant de choisir des dossiers (Finder pour macOS
@@ -41,7 +56,7 @@ public class JChooser {
      */
     public static void directories(Window parent, ListeFichier liste_dossier, File dossier_initial) {
         // Crée une fenêtre qui permet de sauver son fichier avec l'interface Finder.
-        if (Utils.getOS().equals(Utils.MACOSX)) {
+        if (OS.isMacOSX()) {
             JFrame frame = new JFrame();
 
             // Dans le cas d'un mac, on affiche la mise en page Mac.
@@ -68,7 +83,7 @@ public class JChooser {
         } // Pour Windows :
         else {
             try {
-                PlatformImpl.startup(() -> {
+                Platform.startup(() -> {
                     parent.setEnabled(false);
 
                     DirectoryChooser d = new DirectoryChooser();
@@ -111,7 +126,7 @@ public class JChooser {
      */
     public static void directory(Window parent, Fichier dossier, File dossier_initial) {
         // Crée une fenêtre qui permet de sauver son fichier avec l'interface Finder.
-        if (Utils.getOS().equals(Utils.MACOSX)) {
+        if (OS.isMacOSX()) {
             JFrame frame = new JFrame();
 
             // Dans le cas d'un mac, on affiche la mise en page Mac.
@@ -136,7 +151,7 @@ public class JChooser {
             parent.setEnabled(false);
 
             try {
-                PlatformImpl.startup(() -> {
+                Platform.startup(() -> {
                     DirectoryChooser d = new DirectoryChooser();
                     if (dossier_initial != null) {
                         d.setInitialDirectory(dossier_initial);
@@ -215,7 +230,7 @@ public class JChooser {
      * @param fichier_initial Fichier et/ou dossier initial.
      * @param filtre Filtrer des fichiers par exentions de fichier.
      * @see java.awt.FileDialog#getMode
-     * 
+     *
      * @throws IOException
      */
     public static void file(Window parent, Fichier fichier, int mode, File fichier_initial, ExtensionFilterGeneric filtre) throws IOException {
@@ -252,7 +267,7 @@ public class JChooser {
      */
     public static void file(Window parent, Fichier fichier, int mode, File dossier_initial, String nom_fichier_initial, ExtensionFilterGeneric filtre) {
         // Crée une fenêtre qui permet de sauver son fichier avec l'interface Finder.
-        if (Utils.getOS().equals(Utils.MACOSX)) {
+        if (OS.isMacOSX()) {
             JFrame frame = new JFrame();
 
             // Dans le cas d'un mac, on affiche la mise en page Mac.
@@ -283,7 +298,7 @@ public class JChooser {
                 fichier.set(new File(d.getDirectory() + File.separator + d.getFile()));
             }
         } else {
-            PlatformImpl.startup(() -> {
+            Platform.runLater(() -> {
                 if (parent != null) {
                     parent.setEnabled(false);
                 }
@@ -357,7 +372,7 @@ public class JChooser {
      */
     public static void files(Window parent, ListeFichier liste_fichier, File dossier_initial) {
         // Crée une fenêtre qui permet de sauver son fichier avec l'interface Finder.
-        if (Utils.getOS().equals(Utils.MACOSX)) {
+        if (OS.isMacOSX()) {
             JFrame frame = new JFrame();
 
             // Dans le cas d'un mac, on affiche la mise en page Mac.
@@ -380,7 +395,7 @@ public class JChooser {
                 liste_fichier.set(liste);
             }
         } else {
-            PlatformImpl.startup(() -> {
+            Platform.startup(() -> {
                 parent.setEnabled(false);
 
                 FileChooser d = new FileChooser();

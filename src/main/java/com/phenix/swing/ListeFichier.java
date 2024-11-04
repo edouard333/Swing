@@ -18,5 +18,5 @@ public interface ListeFichier {
      * @param liste_fichier Les fichiers/dossiers qu'on récupère (jamais
      * {@code null}).
      */
-    public abstract void set(File[] liste_fichier);
+    public void set(File[] liste_fichier);
 }

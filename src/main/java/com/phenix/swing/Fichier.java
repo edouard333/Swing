@@ -18,5 +18,5 @@ public interface Fichier {
      *
      * @param fichier Le fichier/dossier qu'on récupère (jamais {@code null}).
      */
-    public abstract void set(File fichier);
+    public void set(File fichier);
 }

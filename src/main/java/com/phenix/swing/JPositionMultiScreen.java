@@ -23,7 +23,16 @@ import javax.swing.JFrame;
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  */
-public class JPositionMultiScreen {
+public final class JPositionMultiScreen {
+
+    /**
+     * Pour empêcher d'instancier la classe.
+     *
+     * @throws Exception
+     */
+    private JPositionMultiScreen() throws Exception {
+        throw new Exception("Cette classe ne peut pas être instanciée.");
+    }
 
     /**
      * Retourne le dossier où se trouve le fichier de préférence UI.
@@ -77,6 +86,7 @@ public class JPositionMultiScreen {
     public static void loadPreferencesOrCenterScreen(JFrame frame, String nom_application) throws IOException {
         // Ajoute le comportement pour la fermeture de la fenêtre : sauver les préférences UI.
         frame.addWindowListener(new WindowAdapter() {
+            @Override
             public void windowClosing(WindowEvent evt) {
                 try {
                     JPositionMultiScreen.savePreferences(frame, nom_application);

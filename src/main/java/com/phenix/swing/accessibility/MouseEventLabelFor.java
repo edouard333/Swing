@@ -14,7 +14,7 @@ import javax.swing.JLabel;
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  */
-public class MouseEventLabelFor implements MouseListener {
+public final class MouseEventLabelFor implements MouseListener {
 
     /**
      * Evènement quand on clique.

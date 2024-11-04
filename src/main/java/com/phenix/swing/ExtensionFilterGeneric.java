@@ -11,7 +11,7 @@ import java.util.List;
  * @see com.phenix.swing.JChooser
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  */
-public class ExtensionFilterGeneric {
+public final class ExtensionFilterGeneric {
 
     /**
      * Description affiché dans la fenêtre pour les extension de fichiers.
