@@ -19,7 +19,7 @@ public final class LeftDotRenderer extends DefaultTableCellRenderer {
             JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
-        //  Determine the width available to render the text
+        // Determine the width available to render the text
         int availableWidth = table.getColumnModel().getColumn(column).getWidth();
         availableWidth -= table.getIntercellSpacing().getWidth();
         Insets borderInsets = getBorder().getBorderInsets((Component) this);
@@ -27,8 +27,8 @@ public final class LeftDotRenderer extends DefaultTableCellRenderer {
         String cellText = getText();
         FontMetrics fm = getFontMetrics(getFont());
 
-        //  Not enough space so start rendering from the end of the string
-        //  until all the space is used up
+        // Not enough space so start rendering from the end of the string
+        // until all the space is used up
         if (fm.stringWidth(cellText) > availableWidth) {
             String dots = "...";
             int textWidth = fm.stringWidth(dots);

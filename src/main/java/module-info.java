@@ -5,7 +5,7 @@ module com.phenix.swing {
     requires com.phenix.apios;
     requires java.desktop;
     requires javafx.graphics;
-    
+
     exports com.phenix.swing;
     exports com.phenix.swing.accessibility;
 }
