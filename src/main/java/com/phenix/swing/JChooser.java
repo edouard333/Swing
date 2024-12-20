@@ -83,7 +83,7 @@ public final class JChooser {
         } // Pour Windows :
         else {
             try {
-                Platform.startup(() -> {
+                Platform.runLater(() -> {
                     parent.setEnabled(false);
 
                     DirectoryChooser d = new DirectoryChooser();
@@ -148,10 +148,12 @@ public final class JChooser {
             }
         } // Pour Windows :
         else {
-            parent.setEnabled(false);
-
             try {
-                Platform.startup(() -> {
+                Platform.runLater(() -> {
+                    if (parent != null) {
+                        parent.setEnabled(false);
+                    }
+
                     DirectoryChooser d = new DirectoryChooser();
                     if (dossier_initial != null) {
                         d.setInitialDirectory(dossier_initial);
@@ -161,13 +163,15 @@ public final class JChooser {
                     if (selectedFile != null) {
                         dossier.set(selectedFile);
                     }
+
+                    if (parent != null) {
+                        parent.setEnabled(true);
+                        parent.requestFocus();
+                    }
                 });
             } catch (Exception exception) {
                 System.out.println("Erreur : " + exception.getMessage());
             }
-
-            parent.setEnabled(true);
-            parent.requestFocus();
         }
     }
 
@@ -306,12 +310,10 @@ public final class JChooser {
                 FileChooser d = new FileChooser();
 
                 if (dossier_initial != null) {
-                    System.out.println("Fichier : '" + dossier_initial + "'");
                     d.setInitialDirectory(dossier_initial);
                 }
 
                 if (nom_fichier_initial != null) {
-                    System.out.println("Fichier : '" + nom_fichier_initial + "'");
                     d.setInitialFileName(nom_fichier_initial);
                 }
 
@@ -395,7 +397,7 @@ public final class JChooser {
                 liste_fichier.set(liste);
             }
         } else {
-            Platform.startup(() -> {
+            Platform.runLater(() -> {
                 parent.setEnabled(false);
 
                 FileChooser d = new FileChooser();
