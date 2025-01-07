@@ -5,8 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Filtre des extensions de fichiers pour
- * {@link JChooser}.
+ * Filtre des extensions de fichiers pour {@link JChooser}.
  *
  * @see com.phenix.swing.JChooser
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
