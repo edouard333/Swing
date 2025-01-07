@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * Filtre des extensions de fichiers pour
- * {@link com.phenix.swing.JChooser JChooser}.
+ * {@link JChooser}.
  *
  * @see com.phenix.swing.JChooser
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>

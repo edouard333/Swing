@@ -4,7 +4,7 @@ import java.io.File;
 
 /**
  * Action qui se déroule quand on a sélectionné ou définit le fichier/dossier
- * dans {@link com.phenix.swing.JChooser JChooser}.
+ * dans {@link JChooser}.
  *
  * @see com.phenix.swing.JChooser
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>

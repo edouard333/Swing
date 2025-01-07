@@ -76,7 +76,7 @@ public final class JPositionMultiScreen {
      * {@link java.awt.event.WindowAdapter#windowClosing(java.awt.event.WindowEvent) windowClosing(evt)}
      * la sauvegarde des préférences.<br>
      * S'il y a d'autres manières dont se ferme la fenêtre : ajouter la fonction
-     * {@link savePreferences(frame, nom_application)}
+     * {@link #savePreferences(frame, nom_application)}
      *
      * @param frame La fenêtre.
      * @param nom_application Nom de l'application.
