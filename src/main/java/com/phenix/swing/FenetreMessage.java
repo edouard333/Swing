@@ -3,6 +3,7 @@
  */
 package com.phenix.swing;
 
+import jakarta.validation.constraints.Null;
 import java.awt.Toolkit;
 import java.net.URL;
 import javax.swing.JFrame;
@@ -31,7 +32,7 @@ public final class FenetreMessage extends JFrame {
      * @param message Le message à afficher.
      * @param url URL de l'image à utiliser.
      */
-    public FenetreMessage(JFrame parent, String message, URL url) {
+    public FenetreMessage(JFrame parent, String message, @Null URL url) {
         initComponents();
 
         this.L_message.setText(message);

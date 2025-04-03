@@ -1,6 +1,7 @@
 package com.phenix.swing;
 
 import com.phenix.apios.OS;
+import jakarta.validation.constraints.Null;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -34,7 +35,7 @@ public final class LookAndFeelManager {
      * @param afficher_erreur_fenetre Si on affiche une erreur dans une fenêtre.
      * @param titre_application Titre de l'application, affiché pour macOS.
      */
-    public static void setByOS(boolean afficher_erreur_fenetre, String titre_application) {
+    public static void setByOS(boolean afficher_erreur_fenetre, @Null String titre_application) {
         if (OS.isMacOSX() && titre_application != null) {
             // Définit le nom de l'application sur macOS.
             System.setProperty("apple.awt.application.name", titre_application);

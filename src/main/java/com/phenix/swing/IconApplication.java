@@ -1,6 +1,8 @@
 package com.phenix.swing;
 
 import com.phenix.apios.OS;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.awt.Image;
 import java.awt.Taskbar;
 import java.awt.Toolkit;
@@ -26,7 +28,7 @@ public final class IconApplication {
      * @param classe La classe qui lance le programme (Main.java).
      * @param chemin_icone
      */
-    public static void setIconTaskBar(Class classe, String chemin_icone) {
+    public static void setIconTaskBar(@NotNull Class classe, @NotNull @NotBlank String chemin_icone) {
         if (OS.isMacOSX()) {
             final Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
             Image image = defaultToolkit.getImage(classe.getClassLoader().getResource(chemin_icone));

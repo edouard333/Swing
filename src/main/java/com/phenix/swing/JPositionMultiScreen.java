@@ -1,5 +1,8 @@
 package com.phenix.swing;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 import java.awt.Frame;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
@@ -40,7 +43,7 @@ public final class JPositionMultiScreen {
      * @param nom_application Nom de l'application.
      * @return
      */
-    private static File getFichierPreferences(String nom_application) {
+    private static File getFichierPreferences(@NotNull @NotBlank String nom_application) {
         return new File(System.getProperty("user.home") + File.separator + "preferences-" + nom_application + ".prop");
     }
 
@@ -52,7 +55,7 @@ public final class JPositionMultiScreen {
      *
      * @throws IOException Erreur avec l'écriture du fichier properties.
      */
-    public static void savePreferences(JFrame frame, String nom_application) throws IOException {
+    public static void savePreferences(@NotNull JFrame frame, @NotNull @NotBlank String nom_application) throws IOException {
         File file = getFichierPreferences(nom_application);
         Properties p = new Properties();
         // restore the frame from 'full screen' first!
@@ -83,7 +86,7 @@ public final class JPositionMultiScreen {
      *
      * @throws IOException Erreur dans le chargement des préférences.
      */
-    public static void loadPreferencesOrCenterScreen(JFrame frame, String nom_application) throws IOException {
+    public static void loadPreferencesOrCenterScreen(@NotNull JFrame frame, @NotNull @NotBlank String nom_application) throws IOException {
         // Ajoute le comportement pour la fermeture de la fenêtre : sauver les préférences UI.
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -111,7 +114,7 @@ public final class JPositionMultiScreen {
      *
      * @throws IOException Erreur dans le chargement du fichier properties.
      */
-    public static void loadPreferences(Window frame, String nom_application) throws IOException {
+    public static void loadPreferences(@NotNull Window frame, @NotNull @NotBlank String nom_application) throws IOException {
         File file = getFichierPreferences(nom_application);
         Properties p = new Properties();
         BufferedReader br = new BufferedReader(new FileReader(file));
@@ -133,7 +136,7 @@ public final class JPositionMultiScreen {
      * @param nom_application Nom de l'application.
      * @return {@code true} si le fichier existe.
      */
-    public static boolean preferencesExist(String nom_application) {
+    public static boolean preferencesExist(@NotNull @NotBlank String nom_application) {
         File optionsFile = getFichierPreferences(nom_application);
 
         // Si des préférences existes, on les utilise.
@@ -145,7 +148,7 @@ public final class JPositionMultiScreen {
      *
      * @param frame La fenêtre.
      */
-    public static void setLocation(Window frame) {
+    public static void setLocation(@NotNull Window frame) {
         setLocation(frame, null);
     }
 
@@ -156,7 +159,7 @@ public final class JPositionMultiScreen {
      * @param frame La fenêtre.
      * @param parent La fenêtre parent.
      */
-    public static void setLocation(Window frame, Window parent) {
+    public static void setLocation(@NotNull Window frame, @Null Window parent) {
         // Obtenir la position actuelle de la souris.
         Point mouseLocation = parent == null ? MouseInfo.getPointerInfo().getLocation() : parent.getLocation();
 

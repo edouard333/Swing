@@ -1,5 +1,8 @@
 package com.phenix.swing;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 /**
  * Les valeurs que peuvent prendre un LookAndFeel.
  *
@@ -19,6 +22,8 @@ public enum LookAndFeel {
     /**
      * Valeur de Look And Feel.
      */
+    @NotNull
+    @NotBlank
     private final String valeur;
 
     /**
@@ -26,7 +31,7 @@ public enum LookAndFeel {
      *
      * @param valeur La valeur.
      */
-    private LookAndFeel(String valeur) {
+    private LookAndFeel(@NotNull @NotBlank String valeur) {
         this.valeur = valeur;
     }
 
@@ -65,6 +70,8 @@ public enum LookAndFeel {
      *
      * @return La valeur.
      */
+    @NotNull
+    @NotBlank
     @Override
     public String toString() {
         return this.valeur;

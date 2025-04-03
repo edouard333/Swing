@@ -1,5 +1,6 @@
 package com.phenix.swing;
 
+import jakarta.validation.constraints.NotNull;
 import java.awt.Component;
 import java.awt.FontMetrics;
 import java.awt.Insets;
@@ -16,7 +17,7 @@ public final class LeftDotRenderer extends DefaultTableCellRenderer {
 
     @Override
     public Component getTableCellRendererComponent(
-            JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            @NotNull JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
         // Determine the width available to render the text

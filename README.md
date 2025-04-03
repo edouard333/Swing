@@ -1,5 +1,5 @@
 # Swing
-Librairie gérant des éléments Swing
+Librairie gérant des éléments Swing.
 
 # Comment l'utiliser ?
 Utiliser la classe [`com.phenix.swing.FileDrop`](src/main/java/com/phenix/swing/FileDrop.java).

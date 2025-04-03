@@ -3,6 +3,7 @@
  */
 module com.phenix.swing {
     requires com.phenix.apios;
+    requires jakarta.validation;
     requires java.desktop;
     requires javafx.graphics;
 

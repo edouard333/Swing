@@ -77,12 +77,12 @@ public final class JProgress extends JFrame {
         this.value++;
 
         // Si thread désactivé, on met à jour manuellement.
-        if (!thread) {
-            progress.setValue(value);
+        if (!this.thread) {
+            this.progress.setValue(this.value);
 
             try {
                 SwingUtilities.invokeAndWait(() -> {
-                    progress.setValue(value);
+                    this.progress.setValue(this.value);
                 });
             } catch (InterruptedException | InvocationTargetException exception) {
                 exception.printStackTrace();
@@ -96,6 +96,6 @@ public final class JProgress extends JFrame {
      * @param value La valeur.
      */
     public void setValue(int value) {
-        progress.setValue(value);
+        this.progress.setValue(value);
     }
 }
