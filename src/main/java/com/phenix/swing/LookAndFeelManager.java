@@ -14,7 +14,9 @@ import javax.swing.UnsupportedLookAndFeelException;
 public final class LookAndFeelManager {
 
     /**
-     * Pour ne pas instancier la classe.
+     * On ne peut pas instancier cette classe.
+     *
+     * @throws Exception On ne peut pas instancier cette classe.
      */
     private LookAndFeelManager() throws Exception {
         throw new Exception("Cette classe ne peut pas être instanciée.");

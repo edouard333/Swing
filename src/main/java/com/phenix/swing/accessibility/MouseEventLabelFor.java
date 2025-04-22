@@ -10,7 +10,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 
 /**
- * Evènement souris pour un {@link javax.swing.JLabel JLabel}.
+ * Evènement souris pour un {@link JLabel}.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  */

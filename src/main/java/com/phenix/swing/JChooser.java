@@ -6,7 +6,6 @@ import jakarta.validation.constraints.Null;
 import java.awt.FileDialog;
 import java.awt.Window;
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import javafx.application.Platform;
 import javafx.stage.DirectoryChooser;
@@ -29,9 +28,9 @@ public final class JChooser {
     }
 
     /**
-     * Pour empêcher d'instancier la classe.
+     * On ne peut pas instancier cette classe.
      *
-     * @throws Exception
+     * @throws Exception On ne peut pas instancier cette classe.
      */
     private JChooser() throws Exception {
         throw new Exception("Cette classe ne peut pas être instanciée.");
@@ -236,10 +235,8 @@ public final class JChooser {
      * @param fichier_initial Fichier et/ou dossier initial.
      * @param filtre Filtrer des fichiers par exentions de fichier.
      * @see java.awt.FileDialog#getMode
-     *
-     * @throws IOException
      */
-    public static void file(Window parent, @NotNull Fichier fichier, int mode, @NotNull File fichier_initial, @Null ExtensionFilterGeneric filtre) throws IOException {
+    public static void file(Window parent, @NotNull Fichier fichier, int mode, @NotNull File fichier_initial, @Null ExtensionFilterGeneric filtre) {
         file(parent, fichier, mode, fichier_initial.isAbsolute() ? (fichier_initial.getName().contains(".") ? fichier_initial.getParentFile() : fichier_initial) : null, fichier_initial.getName().contains(".") ? fichier_initial.getName() : null, filtre);
     }
 

@@ -1,5 +1,6 @@
 package com.phenix.swing;
 
+import jakarta.validation.constraints.NotNull;
 import java.io.File;
 
 /**
@@ -18,5 +19,5 @@ public interface ListeFichier {
      * @param liste_fichier Les fichiers/dossiers qu'on récupère (jamais
      * {@code null}).
      */
-    public void set(File[] liste_fichier);
+    public void set(@NotNull File[] liste_fichier);
 }

@@ -16,12 +16,12 @@ public final class JProgress extends JFrame {
     /**
      * La barre de progression.
      */
-    private JProgressBar progress;
+    private final JProgressBar progress;
 
     /**
      * Si on a commencé.
      */
-    private boolean isStarted;
+    private final boolean isStarted;
 
     /**
      * Valeur actuelle de la progression.
@@ -31,12 +31,12 @@ public final class JProgress extends JFrame {
     /**
      * Max.
      */
-    private int max;
+    private final int max;
 
     /**
      * Si on utilise le rafraichissement thread.
      */
-    private boolean thread;
+    private final boolean thread;
 
     /**
      * Construit la fenêtre de progression.

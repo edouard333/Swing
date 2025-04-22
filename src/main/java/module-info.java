@@ -9,4 +9,5 @@ module com.phenix.swing {
 
     exports com.phenix.swing;
     exports com.phenix.swing.accessibility;
+    exports com.phenix.swing.exception;
 }

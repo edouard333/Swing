@@ -14,9 +14,9 @@ import java.awt.Toolkit;
 public final class IconApplication {
 
     /**
-     * Pour empêcher d'instancier la classe.
+     * On ne peut pas instancier cette classe.
      *
-     * @throws Exception
+     * @throws Exception On ne peut pas instancier cette classe.
      */
     private IconApplication() throws Exception {
         throw new Exception("Cette classe ne peut pas être instanciée.");

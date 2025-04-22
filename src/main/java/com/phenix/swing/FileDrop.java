@@ -829,7 +829,7 @@ public class FileDrop {
          * @since 1.1
          */
         @Override
-        public Object getTransferData(java.awt.datatransfer.DataFlavor flavor) throws UnsupportedFlavorException, java.io.IOException {
+        public Object getTransferData(java.awt.datatransfer.DataFlavor flavor) throws UnsupportedFlavorException, IOException {
             // Native object
             if (flavor.equals(DATA_FLAVOR)) {
                 return fetcher == null ? data : fetcher.getObject();

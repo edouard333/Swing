@@ -1,5 +1,6 @@
 package com.phenix.swing;
 
+import com.phenix.swing.exception.SwingException;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
@@ -29,9 +30,9 @@ import javax.swing.JFrame;
 public final class JPositionMultiScreen {
 
     /**
-     * Pour empêcher d'instancier la classe.
+     * On ne peut pas instancier cette classe.
      *
-     * @throws Exception
+     * @throws Exception On ne peut pas instancier cette classe.
      */
     private JPositionMultiScreen() throws Exception {
         throw new Exception("Cette classe ne peut pas être instanciée.");
@@ -53,47 +54,52 @@ public final class JPositionMultiScreen {
      * @param frame La fenêtre.
      * @param nom_application Nom de l'application.
      *
-     * @throws IOException Erreur avec l'écriture du fichier properties.
+     * @throws SwingException Erreur avec l'écriture du fichier properties.
      */
-    public static void savePreferences(@NotNull JFrame frame, @NotNull @NotBlank String nom_application) throws IOException {
-        File file = getFichierPreferences(nom_application);
-        Properties p = new Properties();
-        // restore the frame from 'full screen' first!
-        frame.setExtendedState(Frame.NORMAL);
-        Rectangle r = frame.getBounds();
+    public static void savePreferences(@NotNull JFrame frame, @NotNull @NotBlank String nom_application) throws SwingException {
+        try {
+            File file = getFichierPreferences(nom_application);
+            Properties p = new Properties();
+            // restore the frame from 'full screen' first!
+            frame.setExtendedState(Frame.NORMAL);
+            Rectangle r = frame.getBounds();
 
-        p.setProperty("x", "" + (int) r.getX());
-        p.setProperty("y", "" + (int) r.getY());
-        p.setProperty("w", "" + (int) r.getWidth());
-        p.setProperty("h", "" + (int) r.getHeight());
-        p.setProperty("s", frame.getGraphicsConfiguration().getDevice().getIDstring());
+            p.setProperty("x", "" + (int) r.getX());
+            p.setProperty("y", "" + (int) r.getY());
+            p.setProperty("w", "" + (int) r.getWidth());
+            p.setProperty("h", "" + (int) r.getHeight());
+            p.setProperty("s", frame.getGraphicsConfiguration().getDevice().getIDstring());
 
-        BufferedWriter br = new BufferedWriter(new FileWriter(file));
-        p.store(br, "Properties of the user frame");
+            BufferedWriter br = new BufferedWriter(new FileWriter(file));
+            p.store(br, "Properties of the user frame");
+        } catch (IOException exception) {
+            throw new SwingException(exception.getMessage(), exception);
+        }
     }
 
     /**
      * Tente de charger des préférences UI et si n'y arrive pas, alors centre la
      * fenêtre sur le bon écran.<br>
      * Ajoute au
-     * {@link java.awt.event.WindowAdapter#windowClosing(java.awt.event.WindowEvent) windowClosing(evt)}
+     * {@link java.awt.event.WindowAdapter#windowClosing(java.awt.event.WindowEvent) windowClosing(WindowEvent)}
      * la sauvegarde des préférences.<br>
      * S'il y a d'autres manières dont se ferme la fenêtre : ajouter la fonction
-     * {@link #savePreferences(frame, nom_application)}
+     * {@link #savePreferences(JFrame, String)}
      *
      * @param frame La fenêtre.
      * @param nom_application Nom de l'application.
      *
-     * @throws IOException Erreur dans le chargement des préférences.
+     * @throws SwingException Erreur dans le chargement des préférences.
      */
-    public static void loadPreferencesOrCenterScreen(@NotNull JFrame frame, @NotNull @NotBlank String nom_application) throws IOException {
+    public static void loadPreferencesOrCenterScreen(@NotNull JFrame frame, @NotNull @NotBlank String nom_application) throws SwingException {
         // Ajoute le comportement pour la fermeture de la fenêtre : sauver les préférences UI.
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent evt) {
                 try {
                     JPositionMultiScreen.savePreferences(frame, nom_application);
-                } catch (IOException exception) {
+                } // Comme on est sur une implémentation de fonction, on peut pas throw l'erreur.
+                catch (SwingException exception) {
                     exception.printStackTrace();
                 }
             }
@@ -112,22 +118,26 @@ public final class JPositionMultiScreen {
      * @param frame La fenêtre.
      * @param nom_application Nom de l'application.
      *
-     * @throws IOException Erreur dans le chargement du fichier properties.
+     * @throws SwingException Erreur dans le chargement du fichier properties.
      */
-    public static void loadPreferences(@NotNull Window frame, @NotNull @NotBlank String nom_application) throws IOException {
-        File file = getFichierPreferences(nom_application);
-        Properties p = new Properties();
-        BufferedReader br = new BufferedReader(new FileReader(file));
-        p.load(br);
+    public static void loadPreferences(@NotNull Window frame, @NotNull @NotBlank String nom_application) throws SwingException {
+        try {
+            File file = getFichierPreferences(nom_application);
+            Properties p = new Properties();
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            p.load(br);
 
-        int x = Integer.parseInt(p.getProperty("x"));
-        int y = Integer.parseInt(p.getProperty("y"));
-        int w = Integer.parseInt(p.getProperty("w"));
-        int h = Integer.parseInt(p.getProperty("h"));
+            int x = Integer.parseInt(p.getProperty("x"));
+            int y = Integer.parseInt(p.getProperty("y"));
+            int w = Integer.parseInt(p.getProperty("w"));
+            int h = Integer.parseInt(p.getProperty("h"));
 
-        Rectangle r = new Rectangle(x, y, w, h);
+            Rectangle r = new Rectangle(x, y, w, h);
 
-        frame.setBounds(r);
+            frame.setBounds(r);
+        } catch (IOException exception) {
+            throw new SwingException(exception.getMessage(), exception);
+        }
     }
 
     /**
