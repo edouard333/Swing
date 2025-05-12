@@ -10,7 +10,7 @@ import java.io.File;
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  */
 @FunctionalInterface
-public interface Fichier {
+public interface FileSelected {
 
     /**
      * Ce qui se passe quand on récupère le fichier/dossier sélectionné ou
@@ -18,5 +18,5 @@ public interface Fichier {
      *
      * @param fichier Le fichier/dossier qu'on récupère (jamais {@code null}).
      */
-    public void set(File fichier);
+    public void choose(File fichier);
 }

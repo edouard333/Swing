@@ -6,41 +6,45 @@ package com.phenix.swing;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
 import java.awt.Toolkit;
+import java.awt.Window;
 import java.net.URL;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 
 /**
- * Fenêtre indiquant un message.
+ * Fenêtre indiquant un message.<br>
+ * Cette fenêtre ne peut pas être modal car il doit pouvoir se passer des choses
+ * pendant quelle est affichée.
  *
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  */
-public final class FenetreMessage extends JFrame {
+public final class FenetreMessage extends JDialog {
 
     /**
      * Crée la fenêtre.
      *
-     * @param parent Fenêtre parent.
+     * @param parent La fenêtre parente.
      * @param message Le message à afficher.
      */
-    public FenetreMessage(JFrame parent, @NotNull String message) {
+    public FenetreMessage(@Null Window parent, @NotNull String message) {
         this(parent, message, null);
     }
 
     /**
      * Crée la fenêtre.
      *
-     * @param parent Fenêtre parent.
+     * @param parent La fenêtre parente.
      * @param message Le message à afficher.
-     * @param url URL de l'image à utiliser.
+     * @param image URL de l'image à utiliser.
      */
-    public FenetreMessage(JFrame parent, @NotNull String message, @Null URL url) {
+    public FenetreMessage(@Null Window parent, @NotNull String message, @Null URL image) {
+        super(parent);
         initComponents();
 
         this.L_message.setText(message);
 
         // Ajoute une icone à l'application.
-        if (url != null) {
-            setIconImage(Toolkit.getDefaultToolkit().getImage(url));
+        if (image != null) {
+            setIconImage(Toolkit.getDefaultToolkit().getImage(image));
         }
 
         JPositionMultiScreen.setLocation(this, parent);
@@ -51,7 +55,7 @@ public final class FenetreMessage extends JFrame {
      *
      * @param message Le message.
      */
-    public void setMessage(@NotNull String message) {
+    private void setMessage(@NotNull String message) {
         this.L_message.setText(message);
     }
 

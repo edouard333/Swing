@@ -26,12 +26,12 @@ public final class IconApplication {
      * Définit l'icone de la bar des tâches pour macOS.
      *
      * @param classe La classe qui lance le programme (Main.java).
-     * @param chemin_icone
+     * @param cheminIcone
      */
-    public static void setIconTaskBar(@NotNull Class classe, @NotNull @NotBlank String chemin_icone) {
+    public static void setIconTaskBar(@NotNull Class classe, @NotNull @NotBlank String cheminIcone) {
         if (OS.isMacOSX()) {
             final Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
-            Image image = defaultToolkit.getImage(classe.getClassLoader().getResource(chemin_icone));
+            Image image = defaultToolkit.getImage(classe.getClassLoader().getResource(cheminIcone));
             final Taskbar taskbar = Taskbar.getTaskbar();
             taskbar.setIconImage(image);
         }

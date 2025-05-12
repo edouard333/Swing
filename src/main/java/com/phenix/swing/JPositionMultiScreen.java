@@ -41,24 +41,24 @@ public final class JPositionMultiScreen {
     /**
      * Retourne le dossier où se trouve le fichier de préférence UI.
      *
-     * @param nom_application Nom de l'application.
+     * @param nomApplication Nom de l'application.
      * @return
      */
-    private static File getFichierPreferences(@NotNull @NotBlank String nom_application) {
-        return new File(System.getProperty("user.home") + File.separator + "preferences-" + nom_application + ".prop");
+    private static File getFichierPreferences(@NotNull @NotBlank String nomApplication) {
+        return new File(System.getProperty("user.home") + File.separator + "preferences-" + nomApplication + ".prop");
     }
 
     /**
      * Sauvegarde les informations de positions.
      *
      * @param frame La fenêtre.
-     * @param nom_application Nom de l'application.
+     * @param nomApplication Nom de l'application.
      *
      * @throws SwingException Erreur avec l'écriture du fichier properties.
      */
-    public static void savePreferences(@NotNull JFrame frame, @NotNull @NotBlank String nom_application) throws SwingException {
+    public static void savePreferences(@NotNull JFrame frame, @NotNull @NotBlank String nomApplication) throws SwingException {
         try {
-            File file = getFichierPreferences(nom_application);
+            File file = getFichierPreferences(nomApplication);
             Properties p = new Properties();
             // restore the frame from 'full screen' first!
             frame.setExtendedState(Frame.NORMAL);
@@ -87,17 +87,17 @@ public final class JPositionMultiScreen {
      * {@link #savePreferences(JFrame, String)}
      *
      * @param frame La fenêtre.
-     * @param nom_application Nom de l'application.
+     * @param nomApplication Nom de l'application.
      *
      * @throws SwingException Erreur dans le chargement des préférences.
      */
-    public static void loadPreferencesOrCenterScreen(@NotNull JFrame frame, @NotNull @NotBlank String nom_application) throws SwingException {
+    public static void loadPreferencesOrCenterScreen(@NotNull JFrame frame, @NotNull @NotBlank String nomApplication) throws SwingException {
         // Ajoute le comportement pour la fermeture de la fenêtre : sauver les préférences UI.
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent evt) {
                 try {
-                    JPositionMultiScreen.savePreferences(frame, nom_application);
+                    JPositionMultiScreen.savePreferences(frame, nomApplication);
                 } // Comme on est sur une implémentation de fonction, on peut pas throw l'erreur.
                 catch (SwingException exception) {
                     exception.printStackTrace();
@@ -106,8 +106,8 @@ public final class JPositionMultiScreen {
         });
 
         // Si des préférences existes, on les utilise.
-        if (preferencesExist(nom_application)) {
-            loadPreferences(frame, nom_application);
+        if (preferencesExist(nomApplication)) {
+            loadPreferences(frame, nomApplication);
         } else {
             setLocation(frame, null);
         }
@@ -116,13 +116,13 @@ public final class JPositionMultiScreen {
     /**
      *
      * @param frame La fenêtre.
-     * @param nom_application Nom de l'application.
+     * @param nomApplication Nom de l'application.
      *
      * @throws SwingException Erreur dans le chargement du fichier properties.
      */
-    public static void loadPreferences(@NotNull Window frame, @NotNull @NotBlank String nom_application) throws SwingException {
+    public static void loadPreferences(@NotNull Window frame, @NotNull @NotBlank String nomApplication) throws SwingException {
         try {
-            File file = getFichierPreferences(nom_application);
+            File file = getFichierPreferences(nomApplication);
             Properties p = new Properties();
             BufferedReader br = new BufferedReader(new FileReader(file));
             p.load(br);
@@ -143,11 +143,11 @@ public final class JPositionMultiScreen {
     /**
      * Retourne {@code true} si le fichier properties existe pour l'application.
      *
-     * @param nom_application Nom de l'application.
+     * @param nomApplication Nom de l'application.
      * @return {@code true} si le fichier existe.
      */
-    public static boolean preferencesExist(@NotNull @NotBlank String nom_application) {
-        File optionsFile = getFichierPreferences(nom_application);
+    public static boolean preferencesExist(@NotNull @NotBlank String nomApplication) {
+        File optionsFile = getFichierPreferences(nomApplication);
 
         // Si des préférences existes, on les utilise.
         return optionsFile.exists();

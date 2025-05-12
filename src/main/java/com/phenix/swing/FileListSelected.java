@@ -11,13 +11,13 @@ import java.io.File;
  * @author <a href="mailto:edouard128@hotmail.com">Edouard Jeanjean</a>
  */
 @FunctionalInterface
-public interface ListeFichier {
+public interface FileListSelected {
 
     /**
      * Ce qui se passe quand on récupère les fichiers/dossiers sélectionnés.
      *
-     * @param liste_fichier Les fichiers/dossiers qu'on récupère (jamais
+     * @param listeFichier Les fichiers/dossiers qu'on récupère (jamais
      * {@code null}).
      */
-    public void set(@NotNull File[] liste_fichier);
+    public void choose(@NotNull File[] listeFichier);
 }

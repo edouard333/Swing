@@ -41,10 +41,10 @@ public final class JChooser {
      * et Explorer pour Windows).
      *
      * @param parent Fenêtre parent.
-     * @param liste_dossier La liste des dossiers à définir.
+     * @param listeDossier La liste des dossiers choisis.
      */
-    public static void directories(Window parent, @NotNull ListeFichier liste_dossier) {
-        directories(parent, liste_dossier, null);
+    public static void directories(Window parent, @NotNull FileListSelected listeDossier) {
+        directories(parent, listeDossier, null);
     }
 
     /**
@@ -52,10 +52,10 @@ public final class JChooser {
      * et Explorer pour Windows).
      *
      * @param parent Fenêtre parent.
-     * @param liste_dossier La liste des dossiers à définir.
-     * @param dossier_initial Le dossier initial.
+     * @param listeDossier La liste des dossiers choisis.
+     * @param dossierInitial Le dossier initial.
      */
-    public static void directories(Window parent, @NotNull ListeFichier liste_dossier, @Null File dossier_initial) {
+    public static void directories(Window parent, @NotNull FileListSelected listeDossier, @Null File dossierInitial) {
         // Crée une fenêtre qui permet de sauver son fichier avec l'interface Finder.
         if (OS.isMacOSX()) {
             JFrame frame = new JFrame();
@@ -64,12 +64,14 @@ public final class JChooser {
             System.setProperty("apple.awt.fileDialogForDirectories", "true");
 
             FileDialog d = new FileDialog(frame);
-            if (dossier_initial != null) {
-                d.setDirectory(dossier_initial.getAbsolutePath());
+
+            if (dossierInitial != null) {
+                d.setDirectory(dossierInitial.getAbsolutePath());
             }
-            if (dossier_initial != null) {
-                d.setFile(dossier_initial.getName());
+            if (dossierInitial != null) {
+                d.setFile(dossierInitial.getName());
             }
+
             d.setMultipleMode(true);
 
             d.setVisible(true);
@@ -79,22 +81,23 @@ public final class JChooser {
             // Quand on a indiqué l'endroit où sauver le fichier ou qu'on a fermé la fenêtre, on est ici dans le code.
             // On s'assure qu'un fichier a été choisi (et dossier).
             if (liste != null && liste.length != 0) {
-                liste_dossier.set(liste);
+                listeDossier.choose(liste);
             }
         } // Pour Windows :
         else {
             try {
                 Platform.runLater(() -> {
+                    // Désactive la fenêtre le temps de l'opération.
                     parent.setEnabled(false);
 
                     DirectoryChooser d = new DirectoryChooser();
-                    if (dossier_initial != null) {
-                        d.setInitialDirectory(dossier_initial);
+                    if (dossierInitial != null) {
+                        d.setInitialDirectory(dossierInitial);
                     }
                     File selectedFile = d.showDialog(null);
 
                     if (selectedFile != null) {
-                        liste_dossier.set(new File[]{selectedFile});
+                        listeDossier.choose(new File[]{selectedFile});
                     }
 
                     parent.setEnabled(true);
@@ -111,9 +114,9 @@ public final class JChooser {
      * et Explorer pour Windows).
      *
      * @param parent Fenêtre parent.
-     * @param dossier Le dossier à définir.
+     * @param dossier Le dossier choisi.
      */
-    public static void directory(Window parent, @NotNull Fichier dossier) {
+    public static void directory(Window parent, @NotNull FileSelected dossier) {
         directory(parent, dossier, null);
     }
 
@@ -122,10 +125,10 @@ public final class JChooser {
      * et Explorer pour Windows).
      *
      * @param parent Fenêtre parent.
-     * @param dossier Le dossier à définir.
-     * @param dossier_initial Le dossier initial.
+     * @param dossier Le dossier choisi.
+     * @param dossierInitial Le dossier initial.
      */
-    public static void directory(Window parent, @NotNull Fichier dossier, @Null File dossier_initial) {
+    public static void directory(Window parent, @NotNull FileSelected dossier, @Null File dossierInitial) {
         // Crée une fenêtre qui permet de sauver son fichier avec l'interface Finder.
         if (OS.isMacOSX()) {
             JFrame frame = new JFrame();
@@ -134,8 +137,8 @@ public final class JChooser {
             System.setProperty("apple.awt.fileDialogForDirectories", "true");
 
             FileDialog d = new FileDialog(frame);
-            if (dossier_initial != null) {
-                d.setDirectory(dossier_initial.getAbsolutePath());
+            if (dossierInitial != null) {
+                d.setDirectory(dossierInitial.getAbsolutePath());
             }
             d.setMultipleMode(false);
 
@@ -144,7 +147,7 @@ public final class JChooser {
             // Quand on a indiqué l'endroit où sauver le fichier ou qu'on a fermé la fenêtre, on est ici dans le code.
             // On s'assure qu'un fichier a été choisi (et dossier).
             if (d.getDirectory() != null && d.getFile() != null) {
-                dossier.set(new File(d.getDirectory() + File.separator + d.getFile()));
+                dossier.choose(new File(d.getDirectory() + File.separator + d.getFile()));
                 d.dispose();
             }
         } // Pour Windows :
@@ -156,13 +159,13 @@ public final class JChooser {
                     }
 
                     DirectoryChooser d = new DirectoryChooser();
-                    if (dossier_initial != null) {
-                        d.setInitialDirectory(dossier_initial);
+                    if (dossierInitial != null) {
+                        d.setInitialDirectory(dossierInitial);
                     }
                     File selectedFile = d.showDialog(null);
 
                     if (selectedFile != null) {
-                        dossier.set(selectedFile);
+                        dossier.choose(selectedFile);
                     }
 
                     if (parent != null) {
@@ -181,13 +184,13 @@ public final class JChooser {
      * et Explorer pour Windows).
      *
      * @param parent Fenêtre parent.
-     * @param fichier Le fichier à définir.
+     * @param fichier Le fichier choisi.
      * @param mode Le mode pour la fenêtre entre
      * {@link java.awt.FileDialog#LOAD FileDialog.LOAD} ou
      * {@link java.awt.FileDialog#SAVE FileDialog.SAVE}.
      * @see java.awt.FileDialog#getMode
      */
-    public static void file(Window parent, @NotNull Fichier fichier, int mode) {
+    public static void file(Window parent, @NotNull FileSelected fichier, int mode) {
         file(parent, fichier, mode, null, null, null);
     }
 
@@ -196,14 +199,14 @@ public final class JChooser {
      * et Explorer pour Windows).
      *
      * @param parent Fenêtre parent.
-     * @param fichier Le fichier à définir.
+     * @param fichier Le fichier choisi.
      * @param mode Le mode pour la fenêtre entre
      * {@link java.awt.FileDialog#LOAD FileDialog.LOAD} ou
      * {@link java.awt.FileDialog#SAVE FileDialog.SAVE}.
      * @param filtre Filtre sur base d'une ou plusieurs extensions de fichier.
      * @see java.awt.FileDialog#getMode
      */
-    public static void file(Window parent, @NotNull Fichier fichier, int mode, @Null ExtensionFilterGeneric filtre) {
+    public static void file(Window parent, @NotNull FileSelected fichier, int mode, @Null ExtensionFilterGeneric filtre) {
         file(parent, fichier, mode, null, null, filtre);
     }
 
@@ -212,15 +215,15 @@ public final class JChooser {
      * et Explorer pour Windows).
      *
      * @param parent Fenêtre parent.
-     * @param fichier Le fichier à définir.
+     * @param fichier Le fichier choisi.
      * @param mode Le mode pour la fenêtre entre
      * {@link java.awt.FileDialog#LOAD FileDialog.LOAD} ou
      * {@link java.awt.FileDialog#SAVE FileDialog.SAVE}.
-     * @param fichier_initial Fichier et/ou dossier initial.
+     * @param fichierInitial Fichier et/ou dossier initial.
      * @see java.awt.FileDialog#getMode
      */
-    public static void file(Window parent, @NotNull Fichier fichier, int mode, @NotNull File fichier_initial) {
-        file(parent, fichier, mode, fichier_initial.isAbsolute() ? (fichier_initial.getName().contains(".") ? fichier_initial.getParentFile() : fichier_initial) : null, fichier_initial.getName().contains(".") ? fichier_initial.getName() : null, null);
+    public static void file(Window parent, @NotNull FileSelected fichier, int mode, @NotNull File fichierInitial) {
+        file(parent, fichier, mode, fichierInitial.isAbsolute() ? (fichierInitial.getName().contains(".") ? fichierInitial.getParentFile() : fichierInitial) : null, fichierInitial.getName().contains(".") ? fichierInitial.getName() : null, null);
     }
 
     /**
@@ -228,16 +231,16 @@ public final class JChooser {
      * et Explorer pour Windows).
      *
      * @param parent Fenêtre parent.
-     * @param fichier Le fichier à définir.
+     * @param fichier Le fichier choisi.
      * @param mode Le mode pour la fenêtre entre
      * {@link java.awt.FileDialog#LOAD FileDialog.LOAD} ou
      * {@link java.awt.FileDialog#SAVE FileDialog.SAVE}.
-     * @param fichier_initial Fichier et/ou dossier initial.
+     * @param fichierInitial Fichier et/ou dossier initial.
      * @param filtre Filtrer des fichiers par exentions de fichier.
      * @see java.awt.FileDialog#getMode
      */
-    public static void file(Window parent, @NotNull Fichier fichier, int mode, @NotNull File fichier_initial, @Null ExtensionFilterGeneric filtre) {
-        file(parent, fichier, mode, fichier_initial.isAbsolute() ? (fichier_initial.getName().contains(".") ? fichier_initial.getParentFile() : fichier_initial) : null, fichier_initial.getName().contains(".") ? fichier_initial.getName() : null, filtre);
+    public static void file(Window parent, @NotNull FileSelected fichier, int mode, @NotNull File fichierInitial, @Null ExtensionFilterGeneric filtre) {
+        file(parent, fichier, mode, fichierInitial.isAbsolute() ? (fichierInitial.getName().contains(".") ? fichierInitial.getParentFile() : fichierInitial) : null, fichierInitial.getName().contains(".") ? fichierInitial.getName() : null, filtre);
     }
 
     /**
@@ -245,30 +248,30 @@ public final class JChooser {
      * et Explorer pour Windows).
      *
      * @param parent Fenêtre parent.
-     * @param fichier Le fichier à définir.
+     * @param fichier Le fichier choisi.
      * @param mode Le mode pour la fenêtre entre
      * {@link java.awt.FileDialog#LOAD FileDialog.LOAD} ou
      * {@link java.awt.FileDialog#SAVE FileDialog.SAVE}.
-     * @param dossier_initial Le dossier initial.
-     * @param nom_fichier_initial Le nom initial du fichier.
+     * @param dossierInitial Le dossier initial.
+     * @param nomFichierInitial Le nom initial du fichier.
      * @see java.awt.FileDialog#getMode
      */
-    public static void file(Window parent, @NotNull Fichier fichier, int mode, @Null File dossier_initial, @Null String nom_fichier_initial) {
-        file(parent, fichier, mode, dossier_initial, nom_fichier_initial, null);
+    public static void file(Window parent, @NotNull FileSelected fichier, int mode, @Null File dossierInitial, @Null String nomFichierInitial) {
+        file(parent, fichier, mode, dossierInitial, nomFichierInitial, null);
     }
 
     /**
      * @param parent Fenêtre parent.
-     * @param fichier Le fichier à définir.
+     * @param fichier Le fichier choisi.
      * @param mode Le mode pour la fenêtre entre
      * {@link java.awt.FileDialog#LOAD FileDialog.LOAD} ou
      * {@link java.awt.FileDialog#SAVE FileDialog.SAVE}.
-     * @param dossier_initial Le dossier initial.
-     * @param nom_fichier_initial Le nom initial du fichier.
+     * @param dossierInitial Le dossier initial.
+     * @param nomFichierInitial Le nom initial du fichier.
      * @param filtre Filtrer des fichiers par exentions de fichier.
      * @see java.awt.FileDialog#getMode
      */
-    public static void file(Window parent, @NotNull Fichier fichier, int mode, @Null File dossier_initial, @Null String nom_fichier_initial, @Null ExtensionFilterGeneric filtre) {
+    public static void file(Window parent, @NotNull FileSelected fichier, int mode, @Null File dossierInitial, @Null String nomFichierInitial, @Null ExtensionFilterGeneric filtre) {
         // Crée une fenêtre qui permet de sauver son fichier avec l'interface Finder.
         if (OS.isMacOSX()) {
             JFrame frame = new JFrame();
@@ -277,11 +280,11 @@ public final class JChooser {
             System.setProperty("apple.awt.fileDialogForDirectories", "false");
 
             FileDialog d = new FileDialog(frame);
-            if (dossier_initial != null) {
-                d.setDirectory(dossier_initial.getAbsolutePath());
+            if (dossierInitial != null) {
+                d.setDirectory(dossierInitial.getAbsolutePath());
             }
-            if (nom_fichier_initial != null) {
-                d.setFile(nom_fichier_initial);
+            if (nomFichierInitial != null) {
+                d.setFile(nomFichierInitial);
             }
 
             if (filtre != null) {
@@ -298,7 +301,7 @@ public final class JChooser {
             // Quand on a indiqué l'endroit où sauver le fichier ou qu'on a fermé la fenêtre, on est ici dans le code.
             // On s'assure qu'un fichier a été choisi (et dossier).
             if (d.getDirectory() != null && d.getFile() != null) {
-                fichier.set(new File(d.getDirectory() + File.separator + d.getFile()));
+                fichier.choose(new File(d.getDirectory() + File.separator + d.getFile()));
             }
         } else {
             Platform.runLater(() -> {
@@ -308,26 +311,26 @@ public final class JChooser {
 
                 FileChooser d = new FileChooser();
 
-                if (dossier_initial != null) {
-                    d.setInitialDirectory(dossier_initial);
+                if (dossierInitial != null) {
+                    d.setInitialDirectory(dossierInitial);
                 }
 
-                if (nom_fichier_initial != null) {
-                    d.setInitialFileName(nom_fichier_initial);
+                if (nomFichierInitial != null) {
+                    d.setInitialFileName(nomFichierInitial);
                 }
 
                 if (filtre != null) {
-                    ExtensionFilter filtre_tmp;
+                    ExtensionFilter filtreTmp;
 
-                    List<String> liste_extension = filtre.getExtensions();
+                    List<String> listeExtension = filtre.getExtensions();
 
-                    for (int i = 0; i < liste_extension.size(); i++) {
-                        liste_extension.set(i, "*" + liste_extension.get(i));
+                    for (int i = 0; i < listeExtension.size(); i++) {
+                        listeExtension.set(i, "*" + listeExtension.get(i));
                     }
 
-                    filtre_tmp = new ExtensionFilter(filtre.getDescription(), liste_extension);
-                    d.getExtensionFilters().add(filtre_tmp);
-                    d.setSelectedExtensionFilter(filtre_tmp);
+                    filtreTmp = new ExtensionFilter(filtre.getDescription(), listeExtension);
+                    d.getExtensionFilters().add(filtreTmp);
+                    d.setSelectedExtensionFilter(filtreTmp);
                 } else {
                     d.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Files", "*.*"));
                 }
@@ -341,7 +344,7 @@ public final class JChooser {
                 }
 
                 if (selectedFile != null) {
-                    fichier.set(selectedFile);
+                    fichier.choose(selectedFile);
                 }
 
                 if (parent != null) {
@@ -357,10 +360,10 @@ public final class JChooser {
      * et Explorer pour Windows).
      *
      * @param parent Fenêtre parent.
-     * @param liste_fichier Les fichiers à définir.
+     * @param listeFichier Les fichiers choisis.
      */
-    public static void files(Window parent, @NotNull ListeFichier liste_fichier) {
-        files(parent, liste_fichier, null);
+    public static void files(Window parent, @NotNull FileListSelected listeFichier) {
+        files(parent, listeFichier, null);
     }
 
     /**
@@ -368,10 +371,10 @@ public final class JChooser {
      * et Explorer pour Windows).
      *
      * @param parent Fenêtre parent.
-     * @param liste_fichier Les fichiers à définir.
-     * @param dossier_initial Le dossier initial.
+     * @param listeFichier Les fichiers choisis.
+     * @param dossierInitial Le dossier initial.
      */
-    public static void files(Window parent, @NotNull ListeFichier liste_fichier, @Null File dossier_initial) {
+    public static void files(Window parent, @NotNull FileListSelected listeFichier, @Null File dossierInitial) {
         // Crée une fenêtre qui permet de sauver son fichier avec l'interface Finder.
         if (OS.isMacOSX()) {
             JFrame frame = new JFrame();
@@ -380,8 +383,8 @@ public final class JChooser {
             System.setProperty("apple.awt.fileDialogForDirectories", "false");
 
             FileDialog d = new FileDialog(frame);
-            if (dossier_initial != null) {
-                d.setDirectory(dossier_initial.getAbsolutePath());
+            if (dossierInitial != null) {
+                d.setDirectory(dossierInitial.getAbsolutePath());
             }
 
             d.setMultipleMode(true);
@@ -393,21 +396,21 @@ public final class JChooser {
             // Quand on a indiqué l'endroit où sauver le fichier ou qu'on a fermé la fenêtre, on est ici dans le code.
             // On s'assure qu'un fichier a été choisi (et dossier).
             if (liste != null && liste.length != 0) {
-                liste_fichier.set(liste);
+                listeFichier.choose(liste);
             }
         } else {
             Platform.runLater(() -> {
                 parent.setEnabled(false);
 
                 FileChooser d = new FileChooser();
-                if (dossier_initial != null) {
-                    d.setInitialDirectory(dossier_initial);
+                if (dossierInitial != null) {
+                    d.setInitialDirectory(dossierInitial);
                 }
 
                 List<File> selectedFile = d.showOpenMultipleDialog(null);
 
                 if (selectedFile != null) {
-                    liste_fichier.set((File[]) selectedFile.toArray());
+                    listeFichier.choose((File[]) selectedFile.toArray());
                 }
 
                 parent.setEnabled(true);

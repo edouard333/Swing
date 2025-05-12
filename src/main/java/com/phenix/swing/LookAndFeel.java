@@ -24,7 +24,7 @@ public enum LookAndFeel {
      */
     @NotNull
     @NotBlank
-    private final String valeur;
+    public final String valeur;
 
     /**
      * Définit la valeur du Look And Feel.
@@ -36,33 +36,35 @@ public enum LookAndFeel {
     }
 
     /**
-     * Retourne {@code true} si l'enum est égal au nom.
+     * Retourne {@code true} si l'{@code enum} est égal au nom.
      *
-     * @param nom javax.swing.UIManager.LookAndFeelInfo.getName()
-     * @return {@code true} si l'enum est égal au nom.
+     * @param nom {@link javax.swing.UIManager.LookAndFeelInfo#getName()}
+     * @return {@code true} si l'{@code enum} est égal au {@code nom}.
      */
-    public boolean equals(String nom) {
+    public boolean equals(@NotNull @NotBlank String nom) {
         return this.valeur.equals(nom);
     }
 
     /**
-     * Retourne {@code true} si le nom du LookAndFeel est celui de Windows.
+     * Retourne {@code true} si le {@code nom} du {@link LookAndFeel} est celui
+     * de Windows.
      *
-     * @param nom javax.swing.UIManager.LookAndFeelInfo.getName()
+     * @param nom {@link javax.swing.UIManager.LookAndFeelInfo#getName()}
      * @return {@code true} si c'est Windows.
      */
-    public static boolean isWindows(String nom) {
-        return WINDOWS.valeur.equals(nom);
+    public static boolean isWindows(@NotNull @NotBlank String nom) {
+        return WINDOWS.equals(nom);
     }
 
     /**
-     * Retourne {@code true} si le nom du LookAndFeel est celui de macOS X.
+     * Retourne {@code true} si le nom du {@link LookAndFeel} est celui de macOS
+     * X.
      *
-     * @param nom javax.swing.UIManager.LookAndFeelInfo.getName()
+     * @param nom {@link javax.swing.UIManager.LookAndFeelInfo#getName()}
      * @return {@code true} si c'est macOS X.
      */
-    public static boolean isMacOSX(String nom) {
-        return MACOSX.valeur.equals(nom);
+    public static boolean isMacOSX(@NotNull @NotBlank String nom) {
+        return MACOSX.equals(nom);
     }
 
     /**

@@ -25,22 +25,22 @@ public final class LookAndFeelManager {
     /**
      * Définit le style de l'application avec celui de l'OS.
      *
-     * @param afficher_erreur_fenetre Si on affiche une erreur dans une fenêtre.
+     * @param afficherErreurFenetre Si on affiche une erreur dans une fenêtre.
      */
-    public static void setByOS(boolean afficher_erreur_fenetre) {
-        setByOS(afficher_erreur_fenetre, null);
+    public static void setByOS(boolean afficherErreurFenetre) {
+        setByOS(afficherErreurFenetre, null);
     }
 
     /**
      * Définit le style de l'application avec celui de l'OS.
      *
-     * @param afficher_erreur_fenetre Si on affiche une erreur dans une fenêtre.
-     * @param titre_application Titre de l'application, affiché pour macOS.
+     * @param afficherErreurFenetre Si on affiche une erreur dans une fenêtre.
+     * @param titreApplication Titre de l'application, affiché pour macOS.
      */
-    public static void setByOS(boolean afficher_erreur_fenetre, @Null String titre_application) {
-        if (OS.isMacOSX() && titre_application != null) {
+    public static void setByOS(boolean afficherErreurFenetre, @Null String titreApplication) {
+        if (OS.isMacOSX() && titreApplication != null) {
             // Définit le nom de l'application sur macOS.
-            System.setProperty("apple.awt.application.name", titre_application);
+            System.setProperty("apple.awt.application.name", titreApplication);
         }
 
         try {
@@ -59,7 +59,7 @@ public final class LookAndFeelManager {
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException exception) {
             System.out.println(exception.getMessage());
 
-            if (afficher_erreur_fenetre) {
+            if (afficherErreurFenetre) {
                 JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur de LAF", JOptionPane.ERROR_MESSAGE);
             }
         }

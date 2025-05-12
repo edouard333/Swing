@@ -19,33 +19,33 @@ public final class MouseEventLabelFor implements MouseListener {
     /**
      * Evènement quand on clique.
      *
-     * @param evt L'évènement.
+     * @param event L'évènement.
      */
     @Override
-    public void mouseClicked(MouseEvent evt) {
-        Component composant = ((JLabel) evt.getSource()).getLabelFor();
+    public void mouseClicked(MouseEvent event) {
+        Component composant = ((JLabel) event.getSource()).getLabelFor();
         if (composant != null) {
-            if (composant.getClass().getName().equals("javax.swing.JCheckBox")) {
-                JCheckBox checkbox = ((JCheckBox) composant);
+            if (composant instanceof JCheckBox checkbox) {
                 checkbox.setSelected(!checkbox.isSelected());
             }
+
             composant.requestFocus();
         }
     }
 
     @Override
-    public void mouseEntered(MouseEvent evt) {
+    public void mouseEntered(MouseEvent event) {
     }
 
     @Override
-    public void mouseExited(MouseEvent evt) {
+    public void mouseExited(MouseEvent event) {
     }
 
     @Override
-    public void mousePressed(MouseEvent evt) {
+    public void mousePressed(MouseEvent event) {
     }
 
     @Override
-    public void mouseReleased(MouseEvent evt) {
+    public void mouseReleased(MouseEvent event) {
     }
 }
