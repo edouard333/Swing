@@ -289,7 +289,12 @@ public final class JChooser {
 
             if (filtre != null) {
                 d.setFilenameFilter((dir, name) -> {
-                    return filtre.getExtensions().contains(name);
+                    // S'il n'y a pas de ".", alors cela ne nous concerne pas.
+                    if (!name.contains(".")) {
+                        return false;
+                    }
+
+                    return filtre.getExtensions().contains(name.substring(name.lastIndexOf("."), name.length()));
                 });
             }
 
