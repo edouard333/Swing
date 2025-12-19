@@ -431,6 +431,7 @@ public class FileDrop {
         try {
             List list = new ArrayList();
             String line;
+
             while ((line = bReader.readLine()) != null) {
                 try {
                     // kde seems to append a 0 char to the end of the reader

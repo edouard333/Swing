@@ -325,15 +325,13 @@ public final class JChooser {
                 }
 
                 if (filtre != null) {
-                    ExtensionFilter filtreTmp;
-
                     List<String> listeExtension = filtre.getExtensions();
 
                     for (int i = 0; i < listeExtension.size(); i++) {
                         listeExtension.set(i, "*" + listeExtension.get(i));
                     }
 
-                    filtreTmp = new ExtensionFilter(filtre.getDescription(), listeExtension);
+                    ExtensionFilter filtreTmp = new ExtensionFilter(filtre.getDescription(), listeExtension);
                     d.getExtensionFilters().add(filtreTmp);
                     d.setSelectedExtensionFilter(filtreTmp);
                 } else {

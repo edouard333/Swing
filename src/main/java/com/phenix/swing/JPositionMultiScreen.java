@@ -179,6 +179,7 @@ public final class JPositionMultiScreen {
 
         // Déterminer l'écran contenant la position de la souris.
         GraphicsDevice currentScreen = null;
+
         for (GraphicsDevice screen : screens) {
             GraphicsConfiguration gc = screen.getDefaultConfiguration();
             Rectangle bounds = gc.getBounds();
