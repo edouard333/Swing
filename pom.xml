@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.phenix</groupId>
     <artifactId>swing</artifactId>
-    <version>0.6.7</version>
+    <version>0.6.8</version>
     <packaging>jar</packaging>
     
     <name>Swing</name>
@@ -143,10 +143,26 @@
             <artifactId>jakarta.validation-api</artifactId>
             <version>3.1.1</version>
         </dependency>
+        <!-- Permet d'utiliser le "JChooser" sur Windows. -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
             <version>25.0.1</version>
+            <classifier>win</classifier>
+        </dependency>
+        <!-- Permet d'utiliser le "JChooser" sur macOS (Intel). -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>25.0.1</version>
+            <classifier>mac</classifier>
+        </dependency>
+        <!-- Permet d'utiliser le "JChooser" sur macOS (ARM) -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>25.0.1</version>
+            <classifier>mac-aarch64</classifier>
         </dependency>
     </dependencies>
     
