@@ -2,15 +2,19 @@
 Librairie gérant des éléments Swing.
 
 # Comment l'utiliser ?
-Utiliser la classe [`com.phenix.swing.FileDrop`](src/main/java/com/phenix/swing/FileDrop.java).
+Utiliser par exemple la classe :
 ```java
-// Gérer le drag and drop :
-new FileDrop(Component, , files -> {
-// ...
-});
-
-// Il y a plein d'autres classes à disposition.
-// ...
+import com.phenix.swing.FileDrop;
 ```
 
-Pour plus d'information, consulter la **[JavaDoc du projet](target/site/apidocs/index.html)**.
+Exemple :
+```java
+import com.phenix.swing.FileDrop;
+
+void main(String[] args) {
+    // Gérer le drag and drop :
+    new FileDrop(Component, files -> {
+        // ...
+    });
+}
+```
