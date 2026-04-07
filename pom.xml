@@ -197,7 +197,7 @@
             <version>25.0.1</version>
             <classifier>mac</classifier>
         </dependency>
-        <!-- Permet d'utiliser le "JChooser" sur macOS (ARM) -->
+        <!-- Permet d'utiliser le "JChooser" sur macOS (ARM). -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
